@@ -1,6 +1,6 @@
 namespace SistemaInventario.AccesoDatos.Excepciones
 {
-    /// <summary>Excepción de la capa de datos; oculta SqlException a las capas superiores.</summary>
+    // Excepción de la capa de datos; oculta SqlException a las capas superiores.
     public class AccesoDatosException : Exception
     {
         public AccesoDatosException(string mensaje, Exception? interna = null)

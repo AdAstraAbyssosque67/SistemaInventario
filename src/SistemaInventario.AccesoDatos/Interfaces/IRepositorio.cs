@@ -3,7 +3,7 @@ using SistemaInventario.Entidades;
 
 namespace SistemaInventario.AccesoDatos.Interfaces
 {
-    /// <summary>Operaciones CRUD genéricas con borrado lógico.</summary>
+    // Operaciones CRUD genéricas con borrado lógico.
     public interface IRepositorio<T> where T : EntidadBase
     {
         T? ObtenerPorId(int id);

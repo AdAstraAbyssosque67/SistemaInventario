@@ -1,12 +1,12 @@
 namespace SistemaInventario.AccesoDatos.Logging
 {
-    /// <summary>Escribe errores en el archivo errores.log junto al ejecutable.</summary>
+    // Escribe errores en el archivo errores.log junto al ejecutable.
     public static class Logger
     {
         private static readonly object _candado = new();
         private static readonly string _ruta = Path.Combine(AppContext.BaseDirectory, "errores.log");
 
-        /// <summary>Registra una excepción con fecha, contexto y detalle.</summary>
+        // Registra una excepción con fecha, contexto y detalle.
         public static void Error(string contexto, Exception ex)
         {
             try

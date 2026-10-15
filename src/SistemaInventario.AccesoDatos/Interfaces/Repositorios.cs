@@ -7,15 +7,15 @@ using SistemaInventario.Entidades;
 
 namespace SistemaInventario.AccesoDatos.Repositorios
 {
-    /// <summary>Implementación genérica de IRepositorio&lt;T&gt; sobre ADO.NET.</summary>
+    // Implementación genérica de IRepositorio&lt;T&gt; sobre ADO.NET.
     public abstract class RepositorioBase<T> : IRepositorio<T> where T : EntidadBase
     {
         protected abstract string NombreTabla { get; }
-        /// <summary>SELECT de todas las columnas, sin WHERE.</summary>
+        // SELECT de todas las columnas, sin WHERE.
         protected abstract string SqlSelect { get; }
-        /// <summary>INSERT que termina con SELECT CAST(SCOPE_IDENTITY() AS INT).</summary>
+        // INSERT que termina con SELECT CAST(SCOPE_IDENTITY() AS INT).
         protected abstract string SqlInsert { get; }
-        /// <summary>UPDATE ... WHERE Id = @Id (incluye FechaModificacion = SYSDATETIME()).</summary>
+        // UPDATE ... WHERE Id = @Id (incluye FechaModificacion = SYSDATETIME()).
         protected abstract string SqlUpdate { get; }
 
         protected abstract T Mapear(SqlDataReader lector);
@@ -55,7 +55,7 @@ namespace SistemaInventario.AccesoDatos.Repositorios
 
         // ---------- Helpers (el método genérico propio adicional) ----------
 
-        /// <summary>Ejecuta una consulta y mapea cada fila a TResultado.</summary>
+        // Ejecuta una consulta y mapea cada fila a TResultado.
         protected List<TResultado> EjecutarLectura<TResultado>(
             string sql, Action<SqlCommand>? parametros, Func<SqlDataReader, TResultado> mapear)
         {
