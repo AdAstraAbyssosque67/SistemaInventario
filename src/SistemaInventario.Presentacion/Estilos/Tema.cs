@@ -1,6 +1,6 @@
 ﻿namespace SistemaInventario.Presentacion.Estilos
 {
-    /// <summary>Colores y fuentes de InventarioEngine (estilo verde-teal).</summary>
+    // Colores y fuentes de InventarioEngine (estilo verde-teal).
     public static class Tema
     {
         public static readonly Color Primario = Color.FromArgb(0, 177, 157);

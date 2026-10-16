@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace SistemaInventario.Presentacion.Formularios
 {
-    /// <summary>Formulario para crear o editar un producto.</summary>
+    // Formulario para crear o editar un producto.
     public class FormProducto : FormularioEdicion
     {
         private readonly FabricaServicios _fabrica;
@@ -18,7 +18,7 @@ namespace SistemaInventario.Presentacion.Formularios
         private readonly ComboBox _cmbCategoria = new() { DropDownStyle = ComboBoxStyle.DropDownList };
         private readonly ComboBox _cmbSuplidor = new() { DropDownStyle = ComboBoxStyle.DropDownList };
 
-        /// <param name="productoId">null para crear; el Id del producto para editar.</param>
+        // <param name="productoId">null para crear; el Id del producto para editar.</param>
         public FormProducto(FabricaServicios fabrica, int? productoId)
             : base(productoId.HasValue ? "Editar producto" : "Nuevo producto", new Size(560, 420))
         {

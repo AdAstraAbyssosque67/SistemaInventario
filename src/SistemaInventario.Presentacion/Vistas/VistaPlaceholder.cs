@@ -2,7 +2,7 @@
 
 namespace SistemaInventario.Presentacion.Vistas
 {
-    /// <summary>Pantalla temporal mientras se construye la vista real.</summary>
+    // Pantalla temporal mientras se construye la vista real.
     public class VistaPlaceholder : UserControl
     {
         public VistaPlaceholder(string titulo)

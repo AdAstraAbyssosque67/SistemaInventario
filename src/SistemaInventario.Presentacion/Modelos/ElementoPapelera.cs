@@ -1,5 +1,5 @@
 ﻿namespace SistemaInventario.Presentacion.Modelos
 {
-    /// <summary>Fila de la papelera: sirve para productos, categorías y suplidores eliminados.</summary>
+    // Fila de la papelera: sirve para productos, categorías y suplidores eliminados.
     public record ElementoPapelera(int Id, string Nombre, string Detalle, DateTime? Eliminado);
 }

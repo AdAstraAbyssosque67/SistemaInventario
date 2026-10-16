@@ -7,7 +7,7 @@ using SistemaInventario.Presentacion.Formulary;
 
 namespace SistemaInventario.Presentacion.Formulary
 {
-    /// <summary>Formulario para crear o editar una categoría, con hasta 5 fotos.</summary>
+    // Formulario para crear o editar una categoría, con hasta 5 fotos.
     public class FormCategoria : FormularioEdicion
     {
         private readonly FabricaServicios _fabrica;
@@ -34,7 +34,7 @@ namespace SistemaInventario.Presentacion.Formulary
         private readonly IconButton _btnAgregarFoto = Estilo.BotonSecundario("Agregar fotos", IconChar.Image, 150);
         private readonly Label _lblFotos;
 
-        /// <param name="categoriaId">null para crear; el Id de la categoría para editar.</param>
+        // <param name="categoriaId">null para crear; el Id de la categoría para editar.</param>
         public FormCategoria(FabricaServicios fabrica, int? categoriaId)
             : base(categoriaId.HasValue ? "Editar categoría" : "Nueva categoría", new Size(560, 600))
         {
@@ -181,7 +181,7 @@ namespace SistemaInventario.Presentacion.Formulary
             _panelFotos.Controls.Add(tile);
         }
 
-        /// <summary>Copia la imagen a un Bitmap independiente del stream.</summary>
+        // Copia la imagen a un Bitmap independiente del stream.
         private static Image? CargarImagen(byte[] bytes)
         {
             try

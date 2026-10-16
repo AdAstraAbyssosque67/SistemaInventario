@@ -6,10 +6,10 @@ using SistemaInventario.Presentacion.Modelos;
 
 namespace SistemaInventario.Presentacion.Vistas
 {
-    /// <summary>Papelera: muestra los registros eliminados y permite restaurarlos.</summary>
+    // Papelera: muestra los registros eliminados y permite restaurarlos.
     public class VistaPapelera : UserControl
     {
-        /// <summary>Un tipo de registro: cómo cargar sus eliminados y cómo restaurarlos.</summary>
+        // Un tipo de registro: cómo cargar sus eliminados y cómo restaurarlos.
         private record Origen(string Texto,
                               Func<Resultado<List<ElementoPapelera>>> Cargar,
                               Func<int, Resultado<bool>> Restaurar);
@@ -46,7 +46,7 @@ namespace SistemaInventario.Presentacion.Vistas
             Construir();
         }
 
-        /// <summary>Método genérico: convierte el resultado de cualquier servicio en filas de la papelera.</summary>
+        // Método genérico: convierte el resultado de cualquier servicio en filas de la papelera.
         private static Resultado<List<ElementoPapelera>> Convertir<T>(
             Resultado<List<T>> origen, Func<T, ElementoPapelera> mapa) =>
             origen.Exito
@@ -137,7 +137,7 @@ namespace SistemaInventario.Presentacion.Vistas
             AplicarFiltro();
         }
 
-        /// <summary>LINQ: búsqueda parcial por nombre o detalle, ignorando mayúsculas.</summary>
+        // LINQ: búsqueda parcial por nombre o detalle, ignorando mayúsculas.
         private void AplicarFiltro()
         {
             string texto = _txtBuscar.Text.Trim();

@@ -1,6 +1,8 @@
-﻿namespace SistemaInventario.Presentacion.Estilos
+﻿using SistemaInventario.LogicaNegocio.Genericos;
+
+namespace SistemaInventario.Presentacion.Estilos
 {
-    /// <summary>Mensajes estándar de la aplicación.</summary>
+    // Mensajes estándar de la aplicación.
     public static class Dialogos
     {
         private const string Titulo = "InventarioEngine";
@@ -13,5 +15,13 @@
 
         public static bool Confirmar(string mensaje) =>
             MessageBox.Show(mensaje, Titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+
+        // Muestra el mensaje si el resultado falló. Devuelve true cuando hubo error.
+        public static bool HayError<T>(Resultado<T> resultado)
+        {
+            if (resultado.Exito) return false;
+            Error(resultado.Mensaje);
+            return true;
+        }
     }
 }

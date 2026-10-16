@@ -9,7 +9,7 @@ using SistemaInventario.Presentacion.Modelos;
 
 namespace SistemaInventario.Presentacion.Vistas
 {
-    /// <summary>Listado de productos con búsqueda en tiempo real y filtros por categoría, suplidor y precio.</summary>
+    // Listado de productos con búsqueda en tiempo real y filtros por categoría, suplidor y precio.
     public class VistaProductos : UserControl
     {
         private readonly FabricaServicios _fabrica;
@@ -133,7 +133,7 @@ namespace SistemaInventario.Presentacion.Vistas
             AplicarFiltros();
         }
 
-        /// <summary>Método genérico: llena un ComboBox con cualquier lista de objetos que tengan Id.</summary>
+        // Método genérico: llena un ComboBox con cualquier lista de objetos que tengan Id.
         private static void Rellenar<T>(ComboBox combo, List<T> elementos, string propiedadMostrar)
         {
             combo.DataSource = elementos;

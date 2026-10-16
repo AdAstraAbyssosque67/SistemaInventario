@@ -12,7 +12,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
         private readonly ICategoriaRepositorio _categorias;
         private readonly ISuplidorRepositorio _suplidores;
 
-        // Recibe los repositorios por constructor (inyección de dependencias).</summary>
+        // Recibe los repositorios por constructor (inyección de dependencias).
         public ProductoServicio(IProductoRepositorio productos,
                                 ICategoriaRepositorio categorias,
                                 ISuplidorRepositorio suplidores)
@@ -97,7 +97,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
                 return Resultado<bool>.Ok(true);
             });
 
-        // LINQ: filtros combinables por nombre, categoría, suplidor y rango de precios.</summary>
+        // LINQ: filtros combinables por nombre, categoría, suplidor y rango de precios.
         public IEnumerable<Producto> Filtrar(IEnumerable<Producto> productos, string texto,
             int? categoriaId, int? suplidorId, decimal? precioMinimo, decimal? precioMaximo)
         {
@@ -120,7 +120,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
             return consulta.OrderBy(p => p.Nombre);
         }
 
-        // La categoría y el suplidor deben existir y estar activos.</summary>
+        // La categoría y el suplidor deben existir y estar activos.
         private ResultadoValidacion VerificarRelaciones(Producto producto)
         {
             var v = new ResultadoValidacion();

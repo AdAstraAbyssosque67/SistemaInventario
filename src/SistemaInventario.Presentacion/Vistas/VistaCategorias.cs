@@ -6,7 +6,7 @@ using SistemaInventario.Presentacion.Formulary;
 
 namespace SistemaInventario.Presentacion.Vistas
 {
-    /// <summary>Listado de categorías con búsqueda en tiempo real y acciones.</summary>
+    // Listado de categorías con búsqueda en tiempo real y acciones.
     public class VistaCategorias : UserControl
     {
         private readonly FabricaServicios _fabrica;

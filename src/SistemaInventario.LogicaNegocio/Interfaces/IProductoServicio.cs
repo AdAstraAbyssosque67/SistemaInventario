@@ -16,7 +16,7 @@ namespace SistemaInventario.LogicaNegocio.Interfaces
         // 
         // Filtro en memoria: texto en el nombre, categoría, suplidor y rango de precios.
         // Cualquier parámetro nulo o vacío se ignora.
-        // </summary>
+        // 
         IEnumerable<Producto> Filtrar(IEnumerable<Producto> productos, string texto,
             int? categoriaId, int? suplidorId, decimal? precioMinimo, decimal? precioMaximo);
     }

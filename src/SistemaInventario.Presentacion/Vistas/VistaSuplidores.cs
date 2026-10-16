@@ -6,7 +6,7 @@ using SistemaInventario.Presentacion.Formularios;
 
 namespace SistemaInventario.Presentacion.Vistas
 {
-    /// <summary>Listado de suplidores con búsqueda en tiempo real y acciones.</summary>
+    // Listado de suplidores con búsqueda en tiempo real y acciones.
     public class VistaSuplidores : UserControl
     {
         private readonly FabricaServicios _fabrica;

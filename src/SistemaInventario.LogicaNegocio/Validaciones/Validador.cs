@@ -3,7 +3,7 @@ using SistemaInventario.Entidades;
 
 namespace SistemaInventario.LogicaNegocio.Validaciones
 {
-    // Reglas de validación de las entidades.</summary>
+    // Reglas de validación de las entidades.
     public static class Validador
     {
         public const int MaximoFotos = 5;
@@ -15,7 +15,7 @@ namespace SistemaInventario.LogicaNegocio.Validaciones
             new(@"^(809|829|849)-\d{3}-\d{4}$", RegexOptions.Compiled);
         private static readonly string[] ExtensionesFoto = { ".jpg", ".jpeg", ".png" };
 
-        // Valida una categoría y sus fotos.</summary>
+        // Valida una categoría y sus fotos.
         public static ResultadoValidacion ValidarCategoria(Categoria categoria)
         {
             var r = new ResultadoValidacion();
@@ -37,7 +37,7 @@ namespace SistemaInventario.LogicaNegocio.Validaciones
             return r;
         }
 
-        // Valida un suplidor.</summary>
+        // Valida un suplidor.
         public static ResultadoValidacion ValidarSuplidor(Suplidor suplidor)
         {
             var r = new ResultadoValidacion();
@@ -61,7 +61,7 @@ namespace SistemaInventario.LogicaNegocio.Validaciones
             return r;
         }
 
-        // Valida un producto (la existencia/actividad de categoría y suplidor se verifica en el servicio).</summary>
+        // Valida un producto (la existencia/actividad de categoría y suplidor se verifica en el servicio).
         public static ResultadoValidacion ValidarProducto(Producto producto)
         {
             var r = new ResultadoValidacion();
@@ -80,7 +80,7 @@ namespace SistemaInventario.LogicaNegocio.Validaciones
             return r;
         }
 
-        // Valida una foto. Devuelve el mensaje de error o null si es válida.</summary>
+        // Valida una foto. Devuelve el mensaje de error o null si es válida.
         public static string? ValidarFoto(string nombreArchivo, byte[] imagen)
         {
             string extension = Path.GetExtension(nombreArchivo).ToLowerInvariant();

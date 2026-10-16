@@ -6,7 +6,7 @@ using SistemaInventario.Presentacion.Vistas;
 
 namespace SistemaInventario.Presentacion
 {
-    /// <summary>Ventana principal: menú lateral, barra superior y área de contenido.</summary>
+    // Ventana principal: menú lateral, barra superior y área de contenido.
     public class FormPrincipal : Form
     {
         private const int AnchoMenu = 270;
@@ -33,7 +33,7 @@ namespace SistemaInventario.Presentacion
             Load += (_, _) => botones[0].PerformClick();
         }
 
-        /// <summary>Servicios de negocio; se pasarán a cada vista cuando las construyamos.</summary>
+        // Servicios de negocio; se pasarán a cada vista cuando las construyamos.
         private FabricaServicios Fabrica { get; }
 
         private void ConfigurarFormulario()
@@ -56,12 +56,12 @@ namespace SistemaInventario.Presentacion
 
             var opciones = new (string Texto, IconChar Icono, Func<UserControl> Crear)[]
             {
-                ("Inicio",     IconChar.Home,      () => new VistaPlaceholder("Inicio")),
+                ("Inicio",   IconChar.Home,        () => new VistaInicio(Fabrica)),
                 ("Productos",  IconChar.Boxes,     () => new VistaProductos(Fabrica)),
                 ("Categorías", IconChar.Tags,      () => new VistaCategorias(Fabrica)),
                 ("Suplidores", IconChar.Truck,     () => new VistaSuplidores(Fabrica)),
                 ("Papelera",   IconChar.Trash,     () => new VistaPapelera(Fabrica)),
-                ("Reportes",   IconChar.ChartLine, () => new VistaPlaceholder("Reportes"))
+                ("Reportes", IconChar.ChartLine, () => new VistaReportes(Fabrica))
             };
 
             var lista = new FlowLayoutPanel
@@ -172,7 +172,7 @@ namespace SistemaInventario.Presentacion
 
         // ---------------- Navegación ----------------
 
-        /// <summary>Resalta el botón activo y reemplaza la vista del área de contenido.</summary>
+        // Resalta el botón activo y reemplaza la vista del área de contenido.
         private void Navegar(IconButton boton, string titulo, Func<UserControl> crearVista)
         {
             if (_botonActivo != null) _botonActivo.BackColor = Tema.Primario;

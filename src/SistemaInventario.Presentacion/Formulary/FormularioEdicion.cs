@@ -4,10 +4,10 @@ using SistemaInventario.Presentacion.Estilos;
 
 namespace SistemaInventario.Presentacion.Formulary
 {
-    /// <summary>
-    /// Base de los formularios de alta y edición: diseño, botones Guardar/Cancelar,
-    /// ErrorProvider y manejo de Resultado&lt;T&gt;.
-    /// </summary>
+    // 
+    // Base de los formularios de alta y edición: diseño, botones Guardar/Cancelar,
+    // ErrorProvider y manejo de Resultado&lt;T&gt;.
+    // 
     public abstract class FormularioEdicion : Form
     {
         protected const int AnchoCampo = 490;
@@ -59,13 +59,13 @@ namespace SistemaInventario.Presentacion.Formulary
             CancelButton = cancelar;
         }
 
-        /// <summary>Lee los controles, llama al servicio y pasa el resultado a Procesar.</summary>
+        // Lee los controles, llama al servicio y pasa el resultado a Procesar.
         protected abstract void Guardar();
 
-        /// <summary>Relaciona el nombre de cada campo (clave de error) con su control.</summary>
+        // Relaciona el nombre de cada campo (clave de error) con su control.
         protected abstract IReadOnlyDictionary<string, Control> ControlesPorCampo { get; }
 
-        /// <summary>Agrega una etiqueta y su control. Devuelve la etiqueta por si se quiere cambiar su texto.</summary>
+        // Agrega una etiqueta y su control. Devuelve la etiqueta por si se quiere cambiar su texto.
         protected Label AgregarCampo(string etiqueta, Control control)
         {
             var label = new Label
@@ -82,7 +82,7 @@ namespace SistemaInventario.Presentacion.Formulary
             return label;
         }
 
-        /// <summary>Agrega un control suelto (por ejemplo, un botón) debajo del último campo.</summary>
+        // Agrega un control suelto (por ejemplo, un botón) debajo del último campo.
         protected void AgregarControl(Control control)
         {
             control.Margin = new Padding(3, 10, 3, 0);
@@ -93,7 +93,7 @@ namespace SistemaInventario.Presentacion.Formulary
 
         protected void MarcarError(Control control, string mensaje) => _errores.SetError(control, mensaje);
 
-        /// <summary>Cierra con OK si hubo éxito; si no, marca cada campo con su error.</summary>
+        // Cierra con OK si hubo éxito; si no, marca cada campo con su error.
         protected void Procesar<T>(Resultado<T> resultado)
         {
             if (resultado.Exito)

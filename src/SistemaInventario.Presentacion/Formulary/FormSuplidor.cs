@@ -5,7 +5,7 @@ using SistemaInventario.Presentacion.Formulary;
 
 namespace SistemaInventario.Presentacion.Formularios
 {
-    /// <summary>Formulario para crear o editar un suplidor.</summary>
+    // Formulario para crear o editar un suplidor.
     public class FormSuplidor : FormularioEdicion
     {
         private readonly FabricaServicios _fabrica;
@@ -18,7 +18,7 @@ namespace SistemaInventario.Presentacion.Formularios
         private readonly TextBox _txtEmail = new() { MaxLength = 150, PlaceholderText = "contacto@empresa.com" };
         private readonly TextBox _txtSitioWeb = new() { MaxLength = 300, PlaceholderText = "https://www.empresa.com (opcional)" };
 
-        /// <param name="suplidorId">null para crear; el Id del suplidor para editar.</param>
+        // <param name="suplidorId">null para crear; el Id del suplidor para editar.</param>
         public FormSuplidor(FabricaServicios fabrica, int? suplidorId)
             : base(suplidorId.HasValue ? "Editar suplidor" : "Nuevo suplidor", new Size(560, 470))
         {

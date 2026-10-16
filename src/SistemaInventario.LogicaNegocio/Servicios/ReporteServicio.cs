@@ -1,6 +1,7 @@
 using SistemaInventario.AccesoDatos.Interfaces;
 using SistemaInventario.LogicaNegocio.Genericos;
 using SistemaInventario.LogicaNegocio.Interfaces;
+using SistemaInventario.LogicaNegocio.Modelos;
 
 namespace SistemaInventario.LogicaNegocio.Servicios
 {
@@ -10,7 +11,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
         private readonly ICategoriaRepositorio _categorias;
         private readonly ISuplidorRepositorio _suplidores;
 
-        // Recibe los repositorios por constructor (inyección de dependencias).</summary>
+        // Recibe los repositorios por constructor (inyección de dependencias).
         public ReporteServicio(IProductoRepositorio productos,
                                ICategoriaRepositorio categorias,
                                ISuplidorRepositorio suplidores)
@@ -20,7 +21,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
             _suplidores = suplidores;
         }
 
-        // LINQ: GroupJoin (left join) de categorías con sus productos, contando cada grupo.</summary>
+        // LINQ: GroupJoin (left join) de categorías con sus productos, contando cada grupo.
         public Resultado<List<ItemReporte<int>>> ProductosPorCategoria() =>
             Ejecutar(() =>
             {
@@ -38,7 +39,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
                 return Resultado<List<ItemReporte<int>>>.Ok(reporte);
             });
 
-        // LINQ: ranking de suplidores por cantidad de productos activos.</summary>
+        // LINQ: ranking de suplidores por cantidad de productos activos.
         public Resultado<List<ItemReporte<int>>> TopSuplidores(int cantidad = 5) =>
             Ejecutar(() =>
             {
@@ -57,7 +58,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
                 return Resultado<List<ItemReporte<int>>>.Ok(reporte);
             });
 
-        // LINQ: GroupBy por categoría con Average, unido (Join) al nombre de la categoría.</summary>
+        // LINQ: GroupBy por categoría con Average, unido (Join) al nombre de la categoría.
         public Resultado<List<ItemReporte<decimal>>> PromedioPrecioPorCategoria() =>
             Ejecutar(() =>
             {
@@ -74,6 +75,25 @@ namespace SistemaInventario.LogicaNegocio.Servicios
                     .ToList();
 
                 return Resultado<List<ItemReporte<decimal>>>.Ok(reporte);
+            });
+
+        // Totales generales del inventario.
+        public Resultado<ResumenInventario> ObtenerResumen() =>
+            Ejecutar(() =>
+            {
+                var productos = _productos.ObtenerActivos().ToList();
+                int enPapelera = _productos.ObtenerEliminados().Count()
+                               + _categorias.ObtenerEliminados().Count()
+                               + _suplidores.ObtenerEliminados().Count();
+
+                var resumen = new ResumenInventario(
+                    productos.Count,
+                    _categorias.ObtenerActivos().Count(),
+                    _suplidores.ObtenerActivos().Count(),
+                    productos.Count == 0 ? 0m : Math.Round(productos.Average(p => p.Precio), 2),
+                    enPapelera);
+
+                return Resultado<ResumenInventario>.Ok(resumen);
             });
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SistemaInventario.Presentacion.Estilos
 {
-    /// <summary>Métodos auxiliares que dan a los controles el estilo de la aplicación.</summary>
+    // Métodos auxiliares que dan a los controles el estilo de la aplicación.
     public static class Estilo
     {
         public static IconButton BotonPrimario(string texto, IconChar icono, int ancho = 120) =>
@@ -39,7 +39,7 @@ namespace SistemaInventario.Presentacion.Estilos
             return boton;
         }
 
-        /// <summary>Estilo limpio para los listados (sin bordes pesados, filas altas, selección suave).</summary>
+        // Estilo limpio para los listados (sin bordes pesados, filas altas, selección suave).
         public static void AplicarTabla(DataGridView grid)
         {
             grid.Dock = DockStyle.Fill;
@@ -78,7 +78,7 @@ namespace SistemaInventario.Presentacion.Estilos
             grid.AutoGenerateColumns = false;
         }
 
-        /// <summary>Crea una columna de texto enlazada a una propiedad. El peso reparte el ancho.</summary>
+        // Crea una columna de texto enlazada a una propiedad. El peso reparte el ancho.
         public static DataGridViewTextBoxColumn Columna(string encabezado, string propiedad,
                                                         float peso, string? formato = null)
         {
@@ -91,6 +91,28 @@ namespace SistemaInventario.Presentacion.Estilos
             columna.DefaultCellStyle.NullValue = "—";
             if (formato != null) columna.DefaultCellStyle.Format = formato;
             return columna;
+        }
+
+        // Botón tipo pestaña (RadioButton con aspecto de botón); queda verde cuando está activo.
+        public static RadioButton BotonPestana(string texto, int ancho = 120)
+        {
+            var pestana = new RadioButton
+            {
+                Text = texto,
+                Appearance = Appearance.Button,
+                FlatStyle = FlatStyle.Flat,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(ancho, 38),
+                Margin = new Padding(0, 0, 8, 0),
+                BackColor = Color.White,
+                ForeColor = Tema.Texto,
+                Cursor = Cursors.Hand
+            };
+            pestana.FlatAppearance.BorderColor = Tema.Borde;
+            pestana.FlatAppearance.CheckedBackColor = Tema.Primario;
+            pestana.CheckedChanged += (_, _) =>
+                pestana.ForeColor = pestana.Checked ? Color.White : Tema.Texto;
+            return pestana;
         }
     }
 }

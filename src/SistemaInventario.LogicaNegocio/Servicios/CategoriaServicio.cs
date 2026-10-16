@@ -10,7 +10,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
     {
         private readonly ICategoriaRepositorio _repositorio;
 
-        // Recibe el repositorio por constructor (inyección de dependencias).</summary>
+        // Recibe el repositorio por constructor (inyección de dependencias).
         public CategoriaServicio(ICategoriaRepositorio repositorio)
         {
             _repositorio = repositorio;
@@ -97,7 +97,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
                 return Resultado<bool>.Ok(true);
             });
 
-        // LINQ: búsqueda parcial por nombre o descripción, ignorando mayúsculas/minúsculas.</summary>
+        // LINQ: búsqueda parcial por nombre o descripción, ignorando mayúsculas/minúsculas.
         public IEnumerable<Categoria> Filtrar(IEnumerable<Categoria> categorias, string texto)
         {
             if (string.IsNullOrWhiteSpace(texto)) return categorias;
@@ -107,7 +107,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
                 c.Descripcion.Contains(busqueda, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Compara las fotos de la BD con las de la categoría: borra las que ya no están y agrega las nuevas (Id = 0).</summary>
+        // Compara las fotos de la BD con las de la categoría: borra las que ya no están y agrega las nuevas (Id = 0).
         private void SincronizarFotos(Categoria categoria)
         {
             var idsConservados = categoria.Fotos
