@@ -59,8 +59,8 @@ namespace SistemaInventario.Presentacion
                 ("Inicio",     IconChar.Home,      () => new VistaPlaceholder("Inicio")),
                 ("Productos",  IconChar.Boxes,     () => new VistaProductos(Fabrica)),
                 ("Categorías", IconChar.Tags,      () => new VistaCategorias(Fabrica)),
-                ("Suplidores", IconChar.Truck,     () => new VistaPlaceholder("Suplidores")),
-                ("Papelera",   IconChar.Trash,     () => new VistaPlaceholder("Papelera")),
+                ("Suplidores", IconChar.Truck,     () => new VistaSuplidores(Fabrica)),
+                ("Papelera",   IconChar.Trash,     () => new VistaPapelera(Fabrica)),
                 ("Reportes",   IconChar.ChartLine, () => new VistaPlaceholder("Reportes"))
             };
 
