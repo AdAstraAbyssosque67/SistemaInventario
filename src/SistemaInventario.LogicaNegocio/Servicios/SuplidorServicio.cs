@@ -10,7 +10,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
     {
         private readonly ISuplidorRepositorio _repositorio;
 
-        /// <summary>Recibe el repositorio por constructor (inyección de dependencias).</summary>
+        // Recibe el repositorio por constructor (inyección de dependencias).</summary>
         public SuplidorServicio(ISuplidorRepositorio repositorio)
         {
             _repositorio = repositorio;
@@ -90,7 +90,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
                 return Resultado<bool>.Ok(true);
             });
 
-        /// <summary>LINQ: búsqueda parcial por empresa, contacto, correo o teléfono, ignorando mayúsculas.</summary>
+        // LINQ: búsqueda parcial por empresa, contacto, correo o teléfono, ignorando mayúsculas.</summary>
         public IEnumerable<Suplidor> Filtrar(IEnumerable<Suplidor> suplidores, string texto)
         {
             if (string.IsNullOrWhiteSpace(texto)) return suplidores;

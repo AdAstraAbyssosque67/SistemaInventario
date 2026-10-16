@@ -10,7 +10,7 @@ partial class Form1
     // 
     //  Clean up any resources being used.
     // 
-    // <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+    //  name="disposing">true if managed resources should be disposed; otherwise, false.
     protected override void Dispose(bool disposing)
     {
         if (disposing && (components != null))

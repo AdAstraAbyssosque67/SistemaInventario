@@ -12,7 +12,7 @@ namespace SistemaInventario.LogicaNegocio.Interfaces
         Resultado<bool> Actualizar(Suplidor suplidor);
         Resultado<bool> Eliminar(int id);
         Resultado<bool> Restaurar(int id);
-        /// <summary>Filtro en memoria para el cuadro de búsqueda en tiempo real.</summary>
+        // Filtro en memoria para el cuadro de búsqueda en tiempo real.</summary>
         IEnumerable<Suplidor> Filtrar(IEnumerable<Suplidor> suplidores, string texto);
     }
 }
