@@ -11,7 +11,9 @@ static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
+        var fabrica = new SistemaInventario.LogicaNegocio.FabricaServicios(
+            @"Server=(localdb)\MSSQLLocalDB;Database=SistemaInventario;Trusted_Connection=True;TrustServerCertificate=True;");
+        Application.Run(new FormPrincipal(fabrica));
 
     }    
 }
