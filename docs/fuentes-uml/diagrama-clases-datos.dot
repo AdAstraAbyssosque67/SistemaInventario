@@ -1,0 +1,34 @@
+digraph G {
+  graph [rankdir=LR, splines=polyline, nodesep=0.45, ranksep=0.7, fontname="Helvetica", fontsize=16, labelloc=t, pad=0.3];
+  node [shape=plain, fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9, arrowsize=0.8];
+  label="Acceso a datos (SistemaInventario.AccesoDatos)";
+  IRepositorio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;interface&gt;&gt;</I><BR/><B>IRepositorio&lt;T&gt;</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">ObtenerPorId(id) : T?<BR ALIGN="LEFT"/>ObtenerActivos() : IEnumerable&lt;T&gt;<BR ALIGN="LEFT"/>ObtenerEliminados() : IEnumerable&lt;T&gt;<BR ALIGN="LEFT"/>Agregar(entidad) : int<BR ALIGN="LEFT"/>Actualizar(entidad)<BR ALIGN="LEFT"/>Eliminar(id)<BR ALIGN="LEFT"/>Restaurar(id)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  RepositorioBase [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B><I>RepositorioBase&lt;T&gt;</I></B></TD></TR><HR/><TR><TD ALIGN="LEFT"># NombreTabla : string<BR ALIGN="LEFT"/># SqlSelect / SqlInsert / SqlUpdate : string<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"># Mapear(SqlDataReader) : T<BR ALIGN="LEFT"/># AsignarParametros(SqlCommand, T)<BR ALIGN="LEFT"/># EjecutarLectura / EjecutarNoQuery / EjecutarEscalar<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  ICategoriaRepositorio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;interface&gt;&gt;</I><BR/><B>ICategoriaRepositorio</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">ExisteNombre(nombre, excluirId)<BR ALIGN="LEFT"/>TieneProductosActivos(id)<BR ALIGN="LEFT"/>ObtenerFotos / AgregarFoto / EliminarFoto<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  IProductoRepositorio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;interface&gt;&gt;</I><BR/><B>IProductoRepositorio</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">ObtenerPorCategoria(id)<BR ALIGN="LEFT"/>ObtenerPorSuplidor(id)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  ISuplidorRepositorio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;interface&gt;&gt;</I><BR/><B>ISuplidorRepositorio</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">ExisteNombreEmpresa(nombre, excluirId)<BR ALIGN="LEFT"/>TieneProductosActivos(id)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  CategoriaRepositorio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>CategoriaRepositorio</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  ProductoRepositorio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>ProductoRepositorio</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  SuplidorRepositorio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>SuplidorRepositorio</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  ConexionBD [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;singleton&gt;&gt;</I><BR/><B>ConexionBD</B></TD></TR><HR/><TR><TD ALIGN="LEFT">- _cadenaConexion : string<BR ALIGN="LEFT"/>+ Instancia : ConexionBD {static}<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Configurar(cadena)<BR ALIGN="LEFT"/>+ CrearConexion() : SqlConnection<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Logger [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;static&gt;&gt;</I><BR/><B>Logger</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Error(contexto, ex) {static}<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  AccesoDatosException [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>AccesoDatosException</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  EntidadBase [label="EntidadBase", shape=box, style="rounded,filled", fillcolor="#E6E9EE", fontsize=10, fontname="Helvetica"];
+  SqlException [label="SqlException (Microsoft.Data.SqlClient)", shape=box, style="rounded,filled", fillcolor="#E6E9EE", fontsize=10, fontname="Helvetica"];
+  RepositorioBase -> IRepositorio [arrowhead=empty, style=dashed];
+  ICategoriaRepositorio -> IRepositorio [arrowhead=empty];
+  IProductoRepositorio -> IRepositorio [arrowhead=empty];
+  ISuplidorRepositorio -> IRepositorio [arrowhead=empty];
+  CategoriaRepositorio -> RepositorioBase [arrowhead=empty];
+  CategoriaRepositorio -> ICategoriaRepositorio [arrowhead=empty, style=dashed];
+  ProductoRepositorio -> RepositorioBase [arrowhead=empty];
+  ProductoRepositorio -> IProductoRepositorio [arrowhead=empty, style=dashed];
+  SuplidorRepositorio -> RepositorioBase [arrowhead=empty];
+  SuplidorRepositorio -> ISuplidorRepositorio [arrowhead=empty, style=dashed];
+  IRepositorio -> EntidadBase [arrowhead=open, style=dashed, label="T : EntidadBase"];
+  RepositorioBase -> ConexionBD [arrowhead=open, style=dashed, label="CrearConexion"];
+  RepositorioBase -> Logger [arrowhead=open, style=dashed, label="Error"];
+  RepositorioBase -> AccesoDatosException [arrowhead=open, style=dashed, label="lanza"];
+  RepositorioBase -> SqlException [arrowhead=open, style=dashed, label="captura"];
+}

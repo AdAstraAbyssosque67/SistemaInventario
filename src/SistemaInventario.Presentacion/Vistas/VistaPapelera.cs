@@ -1,167 +1,94 @@
-﻿using FontAwesome.Sharp;
-using SistemaInventario.LogicaNegocio;
+﻿using SistemaInventario.LogicaNegocio;
 using SistemaInventario.LogicaNegocio.Genericos;
+using SistemaInventario.Presentacion.Controles;
 using SistemaInventario.Presentacion.Estilos;
 using SistemaInventario.Presentacion.Modelos;
 
 namespace SistemaInventario.Presentacion.Vistas
 {
     // Papelera: muestra los registros eliminados y permite restaurarlos.
-    public class VistaPapelera : UserControl
+    public partial class VistaPapelera : UserControl
     {
         // Un tipo de registro: cómo cargar sus eliminados y cómo restaurarlos.
-        private record Origen(string Texto,
-                              Func<Resultado<List<ElementoPapelera>>> Cargar,
+        private record Origen(Func<Resultado<List<ElementoPapelera>>> Cargar,
                               Func<int, Resultado<bool>> Restaurar);
 
-        private readonly FabricaServicios _fabrica;
-        private readonly TextBox _txtBuscar = new() { PlaceholderText = "Buscar en la papelera...", Width = 320 };
-        private readonly DataGridView _grid = new();
-        private readonly List<Origen> _origenes;
+        private readonly Dictionary<BotonPestana, Origen> _origenes;
         private Origen _origenActual;
         private List<ElementoPapelera> _elementos = new();
 
         public VistaPapelera(FabricaServicios fabrica)
         {
-            _fabrica = fabrica;
-            _origenes = new List<Origen>
+            InitializeComponent();
+
+            _origenes = new Dictionary<BotonPestana, Origen>
             {
-                new("Productos",
-                    () => Convertir(_fabrica.Productos.ObtenerEliminados(),
+                [rbtnProductos] = new(
+                    () => Convertir(fabrica.Productos.ObtenerEliminados(),
                         p => new ElementoPapelera(p.Id, p.Nombre, $"Precio: RD$ {p.Precio:N2}", p.FechaModificacion)),
-                    id => _fabrica.Productos.Restaurar(id)),
+                    id => fabrica.Productos.Restaurar(id)),
 
-                new("Categorías",
-                    () => Convertir(_fabrica.Categorias.ObtenerEliminadas(),
+                [rbtnCategorias] = new(
+                    () => Convertir(fabrica.Categorias.ObtenerEliminadas(),
                         c => new ElementoPapelera(c.Id, c.Nombre, c.Descripcion, c.FechaModificacion)),
-                    id => _fabrica.Categorias.Restaurar(id)),
+                    id => fabrica.Categorias.Restaurar(id)),
 
-                new("Suplidores",
-                    () => Convertir(_fabrica.Suplidores.ObtenerEliminados(),
+                [rbtnSuplidores] = new(
+                    () => Convertir(fabrica.Suplidores.ObtenerEliminados(),
                         s => new ElementoPapelera(s.Id, s.NombreEmpresa, $"{s.NombreContacto} · {s.Telefono}", s.FechaModificacion)),
-                    id => _fabrica.Suplidores.Restaurar(id))
+                    id => fabrica.Suplidores.Restaurar(id))
             };
-            _origenActual = _origenes[0];
+            _origenActual = _origenes[rbtnProductos];
 
-            Construir();
+            rbtnProductos.Checked = true;   // muestra Productos al abrir
         }
 
-        // Método genérico: convierte el resultado de cualquier servicio en filas de la papelera.
+        // Convierte el resultado de cualquier servicio en filas de la papelera.
         private static Resultado<List<ElementoPapelera>> Convertir<T>(
             Resultado<List<T>> origen, Func<T, ElementoPapelera> mapa) =>
             origen.Exito
                 ? Resultado<List<ElementoPapelera>>.Ok(origen.Valor!.Select(mapa).ToList())
                 : Resultado<List<ElementoPapelera>>.Falla(origen.Mensaje);
 
-        private void Construir()
+        private void rbtnOrigen_CheckedChanged(object? sender, EventArgs e)
         {
-            Dock = DockStyle.Fill;
-            BackColor = Tema.Fondo;
-            Padding = new Padding(24);
-
-            // Fila 1: búsqueda y botón Restaurar
-            var btnRestaurar = Estilo.BotonPrimario("Restaurar", IconChar.Undo, 130);
-            btnRestaurar.Click += (_, _) => Restaurar();
-
-            var acciones = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Right,
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                WrapContents = false,
-                Padding = new Padding(0, 9, 0, 0)
-            };
-            acciones.Controls.Add(btnRestaurar);
-
-            _txtBuscar.Location = new Point(0, 13);
-            _txtBuscar.TextChanged += (_, _) => AplicarFiltro();
-
-            var barra = new Panel { Dock = DockStyle.Top, Height = 56 };
-            barra.Controls.Add(acciones);
-            barra.Controls.Add(_txtBuscar);
-
-            // Fila 2: botones tipo pestaña
-            var selector = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 50, WrapContents = false };
-            foreach (var origen in _origenes)
-            {
-                var radio = new RadioButton
-                {
-                    Text = origen.Texto,
-                    Appearance = Appearance.Button,
-                    FlatStyle = FlatStyle.Flat,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Size = new Size(120, 38),
-                    Margin = new Padding(0, 0, 8, 0),
-                    BackColor = Color.White,
-                    ForeColor = Tema.Texto,
-                    Cursor = Cursors.Hand
-                };
-                radio.FlatAppearance.BorderColor = Tema.Borde;
-                radio.FlatAppearance.CheckedBackColor = Tema.Primario;
-                radio.CheckedChanged += (_, _) =>
-                {
-                    radio.ForeColor = radio.Checked ? Color.White : Tema.Texto;
-                    if (!radio.Checked) return;
-                    _origenActual = origen;
-                    Recargar();
-                };
-                selector.Controls.Add(radio);
-            }
-
-            // Tabla
-            Estilo.AplicarTabla(_grid);
-            _grid.Columns.AddRange(
-                Estilo.Columna("Nombre", nameof(ElementoPapelera.Nombre), 30),
-                Estilo.Columna("Detalle", nameof(ElementoPapelera.Detalle), 45),
-                Estilo.Columna("Eliminado", nameof(ElementoPapelera.Eliminado), 25, "dd/MM/yyyy HH:mm"));
-
-            var tarjeta = new Panel { Dock = DockStyle.Fill, BackColor = Tema.Borde, Padding = new Padding(1) };
-            tarjeta.Controls.Add(_grid);
-
-            Controls.Add(tarjeta);
-            Controls.Add(selector);
-            Controls.Add(barra);
-
-            ((RadioButton)selector.Controls[0]).Checked = true;   // muestra Productos al abrir
+            if (sender is not BotonPestana { Checked: true } pestana) return;
+            _origenActual = _origenes[pestana];
+            Recargar();
         }
 
         private void Recargar()
         {
             var resultado = _origenActual.Cargar();
-            if (!resultado.Exito)
-            {
-                Dialogos.Error(resultado.Mensaje);
-                return;
-            }
+            if (Dialogos.HayError(resultado)) return;
+
             _elementos = resultado.Valor!;
             AplicarFiltro();
         }
 
-        // LINQ: búsqueda parcial por nombre o detalle, ignorando mayúsculas.
+        private void campoBusqueda_TextChanged(object? sender, EventArgs e) => AplicarFiltro();
+
+        // Búsqueda parcial por nombre o detalle, ignorando mayúsculas.
         private void AplicarFiltro()
         {
-            string texto = _txtBuscar.Text.Trim();
-            _grid.DataSource = _elementos
+            string texto = campoBusqueda.Text.Trim();
+            grid.DataSource = _elementos
                 .Where(e => texto.Length == 0
                          || e.Nombre.Contains(texto, StringComparison.OrdinalIgnoreCase)
                          || e.Detalle.Contains(texto, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
-        private void Restaurar()
+        private void btnRestaurar_Click(object? sender, EventArgs e)
         {
-            if (_grid.CurrentRow?.DataBoundItem is not ElementoPapelera elemento)
+            if (grid.CurrentRow?.DataBoundItem is not ElementoPapelera elemento)
             {
                 Dialogos.Info("Seleccione un elemento de la lista.");
                 return;
             }
 
-            var resultado = _origenActual.Restaurar(elemento.Id);
-            if (!resultado.Exito)
-            {
-                Dialogos.Error(resultado.Mensaje);   // por ejemplo: su categoría sigue en la papelera
-                return;
-            }
+            // Falla, por ejemplo, si su categoría sigue en la papelera.
+            if (Dialogos.HayError(_origenActual.Restaurar(elemento.Id))) return;
             Recargar();
         }
     }

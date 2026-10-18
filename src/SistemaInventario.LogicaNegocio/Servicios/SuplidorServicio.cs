@@ -1,4 +1,4 @@
-using SistemaInventario.AccesoDatos.Interfaces;
+﻿using SistemaInventario.AccesoDatos.Interfaces;
 using SistemaInventario.Entidades;
 using SistemaInventario.LogicaNegocio.Genericos;
 using SistemaInventario.LogicaNegocio.Interfaces;
@@ -99,7 +99,7 @@ namespace SistemaInventario.LogicaNegocio.Servicios
                 s.NombreEmpresa.Contains(busqueda, StringComparison.OrdinalIgnoreCase) ||
                 s.NombreContacto.Contains(busqueda, StringComparison.OrdinalIgnoreCase) ||
                 s.Email.Contains(busqueda, StringComparison.OrdinalIgnoreCase) ||
-                s.Telefono.Contains(busqueda));
+                s.Telefono.Contains(busqueda, StringComparison.Ordinal));
         }
 
         private static void Normalizar(Suplidor suplidor)

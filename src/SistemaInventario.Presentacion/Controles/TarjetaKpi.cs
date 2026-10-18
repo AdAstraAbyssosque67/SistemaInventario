@@ -1,4 +1,5 @@
-﻿using FontAwesome.Sharp;
+﻿using System.ComponentModel;
+using FontAwesome.Sharp;
 using SistemaInventario.Presentacion.Estilos;
 
 namespace SistemaInventario.Presentacion.Controles
@@ -6,53 +7,67 @@ namespace SistemaInventario.Presentacion.Controles
     // Tarjeta de indicador: ícono, título y una cifra grande.
     public class TarjetaKpi : Panel
     {
-        private static readonly Font FuenteValor = new("Segoe UI Semibold", 15F);
-        private readonly Label _valor = new();
-
-        public TarjetaKpi(string titulo, IconChar icono)
+        private readonly IconPictureBox _icono = new()
         {
-            Dock = DockStyle.Fill;
-            Margin = new Padding(6);
+            IconColor = Tema.Primario,
+            IconSize = 32,
+            BackColor = Tema.Superficie,
+            Size = new Size(40, 40),
+            Location = new Point(12, 28)
+        };
+
+        private readonly Label _titulo = new()
+        {
+            AutoSize = true,
+            ForeColor = Tema.TextoSuave,
+            BackColor = Tema.Superficie,
+            Location = new Point(58, 22)
+        };
+
+        private readonly Label _valor = new()
+        {
+            Text = "—",
+            AutoSize = true,
+            Font = Tema.FuenteKpi,
+            ForeColor = Tema.Texto,
+            BackColor = Tema.Superficie,
+            Location = new Point(56, 46)
+        };
+
+        public TarjetaKpi()
+        {
             BackColor = Tema.Superficie;
+            ResizeRedraw = true;
+            Controls.AddRange(new Control[] { _icono, _titulo, _valor });
+        }
 
-            Controls.Add(new IconPictureBox
-            {
-                IconChar = icono,
-                IconColor = Tema.Primario,
-                IconSize = 32,
-                BackColor = Tema.Superficie,
-                Size = new Size(40, 40),
-                Location = new Point(12, 28)
-            });
-            Controls.Add(new Label
-            {
-                Text = titulo,
-                AutoSize = true,
-                ForeColor = Tema.TextoSuave,
-                BackColor = Tema.Superficie,
-                Location = new Point(58, 22)
-            });
+        [DefaultValue(IconChar.None)]
+        public IconChar Icono
+        {
+            get => _icono.IconChar;
+            set => _icono.IconChar = value;
+        }
 
-            _valor.Text = "—";
-            _valor.AutoSize = true;
-            _valor.Font = FuenteValor;
-            _valor.ForeColor = Tema.Texto;
-            _valor.BackColor = Tema.Superficie;
-            _valor.Location = new Point(56, 46);
-            Controls.Add(_valor);
-
-            Paint += (_, e) =>
-            {
-                using var lapiz = new Pen(Tema.Borde);
-                e.Graphics.DrawRectangle(lapiz, 0, 0, Width - 1, Height - 1);
-            };
+        [DefaultValue("")]
+        public string Titulo
+        {
+            get => _titulo.Text;
+            set => _titulo.Text = value;
         }
 
         // Cifra que se muestra en la tarjeta.
+        [DefaultValue("—")]
         public string Valor
         {
             get => _valor.Text;
             set => _valor.Text = value;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            using var lapiz = new Pen(Tema.Borde);
+            e.Graphics.DrawRectangle(lapiz, 0, 0, Width - 1, Height - 1);
         }
     }
 }

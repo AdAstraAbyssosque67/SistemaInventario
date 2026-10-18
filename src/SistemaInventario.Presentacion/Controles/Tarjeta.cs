@@ -1,34 +1,38 @@
-﻿using SistemaInventario.Presentacion.Estilos;
+﻿using System.ComponentModel;
+using SistemaInventario.Presentacion.Estilos;
 
 namespace SistemaInventario.Presentacion.Controles
 {
-    // Tarjeta blanca con borde y título que envuelve un control (gráfico, tabla...).
+    // Tarjeta blanca con borde y título. Los controles que se colocan dentro
+    // ocupan el espacio que queda debajo del título.
     public class Tarjeta : Panel
     {
-        public Tarjeta(string titulo, Control contenido)
+        private string _titulo = string.Empty;
+
+        public Tarjeta()
         {
-            Dock = DockStyle.Fill;
-            Margin = new Padding(6);
-            Padding = new Padding(16, 12, 16, 12);
             BackColor = Tema.Superficie;
+            Padding = new Padding(16, 42, 16, 12);
+            ResizeRedraw = true;
+        }
 
-            contenido.Dock = DockStyle.Fill;
-            Controls.Add(contenido);     // primero el que llena
-            Controls.Add(new Label
+        [DefaultValue("")]
+        public string Titulo
+        {
+            get => _titulo;
+            set
             {
-                Text = titulo,
-                Dock = DockStyle.Top,
-                Height = 30,
-                Font = Tema.FuenteMenu,
-                ForeColor = Tema.Texto,
-                BackColor = Tema.Superficie
-            });
+                _titulo = value;
+                Invalidate();
+            }
+        }
 
-            Paint += (_, e) =>
-            {
-                using var lapiz = new Pen(Tema.Borde);
-                e.Graphics.DrawRectangle(lapiz, 0, 0, Width - 1, Height - 1);
-            };
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            TextRenderer.DrawText(e.Graphics, _titulo, Tema.FuenteMenu, new Point(16, 12), Tema.Texto);
+            using var lapiz = new Pen(Tema.Borde);
+            e.Graphics.DrawRectangle(lapiz, 0, 0, Width - 1, Height - 1);
         }
     }
 }

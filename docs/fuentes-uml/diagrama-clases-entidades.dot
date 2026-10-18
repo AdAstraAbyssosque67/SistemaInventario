@@ -1,0 +1,17 @@
+digraph G {
+  graph [rankdir=BT, splines=polyline, nodesep=0.45, ranksep=0.7, fontname="Helvetica", fontsize=16, labelloc=t, pad=0.3];
+  node [shape=plain, fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9, arrowsize=0.8];
+  label="Entidades (SistemaInventario.Entidades)";
+  EntidadBase [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B><I>EntidadBase</I></B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Id : int<BR ALIGN="LEFT"/>+ Activo : bool<BR ALIGN="LEFT"/>+ FechaCreacion : DateTime<BR ALIGN="LEFT"/>+ FechaModificacion : DateTime?<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Categoria [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>Categoria</B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Nombre : string<BR ALIGN="LEFT"/>+ Descripcion : string<BR ALIGN="LEFT"/>+ Fotos : List&lt;FotoCategoria&gt;<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Producto [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>Producto</B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Nombre : string<BR ALIGN="LEFT"/>+ Precio : decimal<BR ALIGN="LEFT"/>+ CategoriaId : int<BR ALIGN="LEFT"/>+ SuplidorId : int<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Suplidor [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>Suplidor</B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ NombreEmpresa : string<BR ALIGN="LEFT"/>+ NombreContacto : string<BR ALIGN="LEFT"/>+ Telefono : string<BR ALIGN="LEFT"/>+ Email : string<BR ALIGN="LEFT"/>+ SitioWeb : string?<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  FotoCategoria [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>FotoCategoria</B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Id : int<BR ALIGN="LEFT"/>+ CategoriaId : int<BR ALIGN="LEFT"/>+ NombreArchivo : string<BR ALIGN="LEFT"/>+ Imagen : byte[]<BR ALIGN="LEFT"/>+ FechaCreacion : DateTime<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Categoria -> EntidadBase [arrowhead=empty];
+  Producto -> EntidadBase [arrowhead=empty];
+  Suplidor -> EntidadBase [arrowhead=empty];
+  Categoria -> FotoCategoria [arrowhead=none, arrowtail=diamond, dir=both, taillabel="1", headlabel="0..5"];
+  Producto -> Categoria [arrowhead=open, taillabel="*", headlabel="1", label="CategoriaId"];
+  Producto -> Suplidor [arrowhead=open, taillabel="*", headlabel="1", label="SuplidorId"];
+}

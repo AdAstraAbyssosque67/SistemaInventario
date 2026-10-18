@@ -1,0 +1,57 @@
+digraph G {
+  graph [rankdir=LR, splines=polyline, nodesep=0.45, ranksep=0.7, fontname="Helvetica", fontsize=16, labelloc=t, pad=0.3];
+  node [shape=plain, fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9, arrowsize=0.8];
+  label="Presentación (Windows Forms): las vistas dependen de FabricaServicios y usan los controles de estilo";
+  subgraph cluster_p { label="SistemaInventario.Presentacion"; style="rounded,filled"; fillcolor="#F5EEFF"; color="#8895a7"; fontsize=13;
+  Program [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>Program</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Main() {static}<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  FormPrincipal [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;Form&gt;&gt;</I><BR/><B>FormPrincipal</B></TD></TR><HR/><TR><TD ALIGN="LEFT">- _vistas : Dictionary&lt;IconButton, Func&lt;UserControl&gt;&gt;<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">- Navegar(boton)<BR ALIGN="LEFT"/>- btnMenu_Click(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  VistaInicio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;UserControl&gt;&gt;</I><BR/><B>VistaInicio</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">- CargarDatos()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  VistaProductos [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;UserControl&gt;&gt;</I><BR/><B>VistaProductos</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">- CargarDatos()<BR ALIGN="LEFT"/>- AplicarFiltros()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  VistaCategorias [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;UserControl&gt;&gt;</I><BR/><B>VistaCategorias</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">- Recargar()<BR ALIGN="LEFT"/>- AplicarFiltro()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  VistaSuplidores [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;UserControl&gt;&gt;</I><BR/><B>VistaSuplidores</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">- Recargar()<BR ALIGN="LEFT"/>- AplicarFiltro()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  VistaPapelera [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;UserControl&gt;&gt;</I><BR/><B>VistaPapelera</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">- Recargar()<BR ALIGN="LEFT"/>- btnRestaurar_Click(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  VistaReportes [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;UserControl&gt;&gt;</I><BR/><B>VistaReportes</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">- Mostrar(reporte)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  FormularioEdicion [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;Form&gt;&gt;</I><BR/><B>FormularioEdicion</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"># Guardar() {virtual}<BR ALIGN="LEFT"/># Procesar&lt;T&gt;(resultado)<BR ALIGN="LEFT"/># LimpiarErrores() / MarcarError(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  FormProducto [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>FormProducto</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"># Guardar()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  FormCategoria [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>FormCategoria</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"># Guardar()<BR ALIGN="LEFT"/>- AgregarMiniatura(foto)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  FormSuplidor [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><B>FormSuplidor</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"># Guardar()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  }
+  subgraph cluster_c { label="Controles y estilos"; style="rounded,filled"; fillcolor="#F2F4F7"; color="#8895a7"; fontsize=13;
+  Tarjeta [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;Panel&gt;&gt;</I><BR/><B>Tarjeta</B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Titulo : string<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  TarjetaKpi [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;Panel&gt;&gt;</I><BR/><B>TarjetaKpi</B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Titulo : string<BR ALIGN="LEFT"/>+ Icono : IconChar<BR ALIGN="LEFT"/>+ Valor : string<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  TablaListado [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;DataGridView&gt;&gt;</I><BR/><B>TablaListado</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  CampoBusqueda [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;Panel&gt;&gt;</I><BR/><B>CampoBusqueda</B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ PlaceholderText : string<BR ALIGN="LEFT"/>+ Text : string<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  BotonPestana [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;RadioButton&gt;&gt;</I><BR/><B>BotonPestana</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Tema [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;static&gt;&gt;</I><BR/><B>Tema</B></TD></TR><HR/><TR><TD ALIGN="LEFT">+ colores y fuentes {static}<BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Graficos [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;static&gt;&gt;</I><BR/><B>Graficos</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Columnas(grafico, items, serie)<BR ALIGN="LEFT"/>+ Dona(grafico, items)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Dialogos [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF"><TR><TD ALIGN="CENTER"><I>&lt;&lt;static&gt;&gt;</I><BR/><B>Dialogos</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT">+ Info / Error / Confirmar<BR ALIGN="LEFT"/>+ HayError&lt;T&gt;(resultado) : bool<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  }
+  FabricaServicios [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFF6E5"><TR><TD ALIGN="CENTER"><B>FabricaServicios</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Resultado [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFF6E5"><TR><TD ALIGN="CENTER"><B>Resultado&lt;T&gt;</B></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR><HR/><TR><TD ALIGN="LEFT"> <BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Program -> FormPrincipal [arrowhead=open, label="crea"];
+  Program -> FabricaServicios [arrowhead=open, style=dashed];
+  FormPrincipal -> VistaInicio [arrowhead=open];
+  VistaInicio -> FabricaServicios [arrowhead=open, style=dashed];
+  FormPrincipal -> VistaProductos [arrowhead=open];
+  VistaProductos -> FabricaServicios [arrowhead=open, style=dashed];
+  FormPrincipal -> VistaCategorias [arrowhead=open];
+  VistaCategorias -> FabricaServicios [arrowhead=open, style=dashed];
+  FormPrincipal -> VistaSuplidores [arrowhead=open];
+  VistaSuplidores -> FabricaServicios [arrowhead=open, style=dashed];
+  FormPrincipal -> VistaPapelera [arrowhead=open];
+  VistaPapelera -> FabricaServicios [arrowhead=open, style=dashed];
+  FormPrincipal -> VistaReportes [arrowhead=open];
+  VistaReportes -> FabricaServicios [arrowhead=open, style=dashed];
+  FormProducto -> FormularioEdicion [arrowhead=empty];
+  FormProducto -> FabricaServicios [arrowhead=open, style=dashed];
+  FormCategoria -> FormularioEdicion [arrowhead=empty];
+  FormCategoria -> FabricaServicios [arrowhead=open, style=dashed];
+  FormSuplidor -> FormularioEdicion [arrowhead=empty];
+  FormSuplidor -> FabricaServicios [arrowhead=open, style=dashed];
+  VistaProductos -> FormProducto [arrowhead=open, style=dashed, label="abre"];
+  VistaCategorias -> FormCategoria [arrowhead=open, style=dashed, label="abre"];
+  VistaSuplidores -> FormSuplidor [arrowhead=open, style=dashed, label="abre"];
+  FormularioEdicion -> Resultado [arrowhead=open, style=dashed];
+  Dialogos -> Resultado [arrowhead=open, style=dashed];
+}

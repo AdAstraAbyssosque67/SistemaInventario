@@ -1,4 +1,4 @@
-using SistemaInventario.Entidades;
+﻿using SistemaInventario.Entidades;
 using SistemaInventario.LogicaNegocio.Genericos;
 
 namespace SistemaInventario.LogicaNegocio.Interfaces
@@ -13,10 +13,8 @@ namespace SistemaInventario.LogicaNegocio.Interfaces
         Resultado<bool> Eliminar(int id);
         Resultado<bool> Restaurar(int id);
 
-        // 
         // Filtro en memoria: texto en el nombre, categoría, suplidor y rango de precios.
         // Cualquier parámetro nulo o vacío se ignora.
-        // 
         IEnumerable<Producto> Filtrar(IEnumerable<Producto> productos, string texto,
             int? categoriaId, int? suplidorId, decimal? precioMinimo, decimal? precioMaximo);
     }

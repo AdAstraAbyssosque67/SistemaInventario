@@ -17,7 +17,6 @@
 
         public static readonly Font FuenteBase = new("Segoe UI", 10F);
         public static readonly Font FuenteMenu = new("Segoe UI Semibold", 10.5F);
-        public static readonly Font FuenteTitulo = new("Segoe UI Semibold", 16F);
-        public static readonly Font FuenteLogo = new("Segoe UI Semibold", 15F);
+        public static readonly Font FuenteKpi = new("Segoe UI Semibold", 15F);
     }
 }

@@ -4,7 +4,7 @@ using SistemaInventario.LogicaNegocio.Genericos;
 
 namespace SistemaInventario.LogicaNegocio.Servicios
 {
-    // Base de los servicios: convierte las excepciones de datos en Resultado&lt;T&gt;.
+    // Base de los servicios: convierte las excepciones de datos en Resultado<T>.
     public abstract class ServicioBase
     {
         protected Resultado<T> Ejecutar<T>(Func<Resultado<T>> operacion)
