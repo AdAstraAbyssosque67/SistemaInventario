@@ -1,3 +1,4 @@
+
 # Sistema de Inventario (Invent-Engine)
 
 Aplicación de escritorio en **C# / Windows Forms (.NET 10)** para gestionar productos, categorías y suplidores de un inventario, con papelera (borrado lógico), reportes y gráficos. Los datos se guardan en **SQL Server** (LocalDB por defecto).
@@ -7,15 +8,16 @@ Aplicación de escritorio en **C# / Windows Forms (.NET 10)** para gestionar pro
 <!-- Reemplaza cada línea por tu captura (guárdalas en docs/capturas/) -->
 | Inicio | Productos |
 |---|---|
-| ![Inicio](docs/capturas/inicio.png) | ![Productos](docs/capturas/productos.png) |
+| ![Inicio](<img width="1612" height="997" alt="Captura de pantalla 2026-10-18 154742" src="https://github.com/user-attachments/assets/358147da-1a89-4818-9ac1-0b2baaf89d40" />) | ![Productos](<img width="1605" height="997" alt="Captura de pantalla 2026-10-18 154752" src="https://github.com/user-attachments/assets/1b0fadec-61a5-4fc3-90b5-34fd612ccedf" />) |
 
 | Categorías | Suplidores |
 |---|---|
-| ![Categorías](docs/capturas/categorias.png) | ![Suplidores](docs/capturas/suplidores.png) |
+| ![Categorías](<img width="1610" height="997" alt="Captura de pantalla 2026-10-18 154804" src="https://github.com/user-attachments/assets/cbe15002-0397-4bc5-b4c4-3a9255ba7581" />) | ![Suplidores](<img width="1617" height="992" alt="Captura de pantalla 2026-10-18 154810" src="https://github.com/user-attachments/assets/2fea81cc-df5a-4da3-b286-21d9932c6c7c" />) |
 
 | Papelera | Reportes |
 |---|---|
-| ![Papelera](docs/capturas/papelera.png) | ![Reportes](docs/capturas/reportes.png) |
+| ![Papelera](<img width="1626" height="996" alt="Captura de pantalla 2026-10-18 154816" src="https://github.com/user-attachments/assets/c2774df7-d7f4-4305-a21a-53d393a27cd2" />) | ![Reportes](<img width="1637" height="998" alt="Captura de pantalla 2026-10-18 154821" src="https://github.com/user-attachments/assets/7d966ca3-3475-45ba-8442-a66d8289a2e3" />
+) |
 
 ## Funcionalidades
 
