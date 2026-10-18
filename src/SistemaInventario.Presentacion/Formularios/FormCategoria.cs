@@ -1,59 +1,37 @@
-﻿using FontAwesome.Sharp;
-using SistemaInventario.Entidades;
+﻿using SistemaInventario.Entidades;
 using SistemaInventario.LogicaNegocio;
 using SistemaInventario.LogicaNegocio.Validaciones;
 using SistemaInventario.Presentacion.Estilos;
-using SistemaInventario.Presentacion.Formulary;
 
-namespace SistemaInventario.Presentacion.Formulary
+namespace SistemaInventario.Presentacion.Formularios
 {
     // Formulario para crear o editar una categoría, con hasta 5 fotos.
-    public class FormCategoria : FormularioEdicion
+    public partial class FormCategoria : FormularioEdicion
     {
+        private static readonly Font FuenteQuitar = new("Segoe UI", 7F);
+
         private readonly FabricaServicios _fabrica;
         private readonly Dictionary<string, Control> _controles;
         private Categoria _categoria = new();
 
-        private readonly TextBox _txtNombre = new() { MaxLength = 100 };
-        private readonly TextBox _txtDescripcion = new()
-        {
-            MaxLength = 500,
-            Multiline = true,
-            Height = 90,
-            AcceptsReturn = true,
-            ScrollBars = ScrollBars.Vertical
-        };
-        private readonly FlowLayoutPanel _panelFotos = new()
-        {
-            Height = 108,
-            AutoScroll = true,
-            WrapContents = false,
-            Padding = new Padding(8),
-            BackColor = Tema.Fondo
-        };
-        private readonly IconButton _btnAgregarFoto = Estilo.BotonSecundario("Agregar fotos", IconChar.Image, 150);
-        private readonly Label _lblFotos;
-
-        // <param name="categoriaId">null para crear; el Id de la categoría para editar.</param>
+        // categoriaId: null para crear; el Id de la categoría para editar.
         public FormCategoria(FabricaServicios fabrica, int? categoriaId)
-            : base(categoriaId.HasValue ? "Editar categoría" : "Nueva categoría", new Size(560, 600))
         {
             _fabrica = fabrica;
+            InitializeComponent();
+
             _controles = new Dictionary<string, Control>
             {
-                [nameof(Categoria.Nombre)] = _txtNombre,
-                [nameof(Categoria.Descripcion)] = _txtDescripcion,
-                [nameof(Categoria.Fotos)] = _btnAgregarFoto
+                [nameof(Categoria.Nombre)] = txtNombre,
+                [nameof(Categoria.Descripcion)] = txtDescripcion,
+                [nameof(Categoria.Fotos)] = btnAgregarFoto
             };
 
-            AgregarCampo("Nombre", _txtNombre);
-            AgregarCampo("Descripción", _txtDescripcion);
-            _lblFotos = AgregarCampo("Fotos", _panelFotos);
-            AgregarControl(_btnAgregarFoto);
-            _btnAgregarFoto.Click += (_, _) => AgregarFotos();
-
-            if (categoriaId.HasValue && !CargarCategoria(categoriaId.Value))
-                Load += (_, _) => Close();
+            if (categoriaId.HasValue)
+            {
+                Text = "Editar categoría";
+                if (!CargarCategoria(categoriaId.Value)) Load += (_, _) => Close();
+            }
 
             ActualizarContador();
         }
@@ -63,15 +41,11 @@ namespace SistemaInventario.Presentacion.Formulary
         private bool CargarCategoria(int id)
         {
             var resultado = _fabrica.Categorias.ObtenerPorId(id);
-            if (!resultado.Exito)
-            {
-                Dialogos.Error(resultado.Mensaje);
-                return false;
-            }
+            if (Dialogos.HayError(resultado)) return false;
 
             _categoria = resultado.Valor!;
-            _txtNombre.Text = _categoria.Nombre;
-            _txtDescripcion.Text = _categoria.Descripcion;
+            txtNombre.Text = _categoria.Nombre;
+            txtDescripcion.Text = _categoria.Descripcion;
             foreach (var foto in _categoria.Fotos) AgregarMiniatura(foto);
             return true;
         }
@@ -79,16 +53,24 @@ namespace SistemaInventario.Presentacion.Formulary
         protected override void Guardar()
         {
             LimpiarErrores();
-            _categoria.Nombre = _txtNombre.Text;
-            _categoria.Descripcion = _txtDescripcion.Text;
+            _categoria.Nombre = txtNombre.Text;
+            _categoria.Descripcion = txtDescripcion.Text;
 
             if (_categoria.Id == 0) Procesar(_fabrica.Categorias.Crear(_categoria));
             else Procesar(_fabrica.Categorias.Actualizar(_categoria));
         }
 
+        // Libera las imágenes de las miniaturas que siguen en pantalla.
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            foreach (var caja in panelFotos.Controls.OfType<Panel>().SelectMany(t => t.Controls.OfType<PictureBox>()))
+                caja.Image?.Dispose();
+            base.OnFormClosed(e);
+        }
+
         // ---------------- Fotos ----------------
 
-        private void AgregarFotos()
+        private void btnAgregarFoto_Click(object? sender, EventArgs e)
         {
             if (_categoria.Fotos.Count >= Validador.MaximoFotos)
             {
@@ -136,6 +118,7 @@ namespace SistemaInventario.Presentacion.Formulary
             ActualizarContador();
         }
 
+        // Las miniaturas dependen de los datos, por eso se crean en tiempo de ejecución.
         private void AgregarMiniatura(FotoCategoria foto)
         {
             var imagen = new PictureBox
@@ -153,7 +136,7 @@ namespace SistemaInventario.Presentacion.Formulary
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Tema.Peligro,
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 7F),
+                Font = FuenteQuitar,
                 Cursor = Cursors.Hand
             };
             quitar.FlatAppearance.BorderSize = 0;
@@ -172,13 +155,13 @@ namespace SistemaInventario.Presentacion.Formulary
             quitar.Click += (_, _) =>
             {
                 _categoria.Fotos.Remove(foto);
-                _panelFotos.Controls.Remove(tile);
+                panelFotos.Controls.Remove(tile);
                 imagen.Image?.Dispose();
                 tile.Dispose();
                 ActualizarContador();
             };
 
-            _panelFotos.Controls.Add(tile);
+            panelFotos.Controls.Add(tile);
         }
 
         // Copia la imagen a un Bitmap independiente del stream.
@@ -197,6 +180,6 @@ namespace SistemaInventario.Presentacion.Formulary
         }
 
         private void ActualizarContador() =>
-            _lblFotos.Text = $"Fotos ({_categoria.Fotos.Count}/{Validador.MaximoFotos}) · .jpg, .jpeg o .png · máx. 2 MB";
+            lblFotos.Text = $"Fotos ({_categoria.Fotos.Count}/{Validador.MaximoFotos}) · .jpg, .jpeg o .png · máx. 2 MB";
     }
 }
