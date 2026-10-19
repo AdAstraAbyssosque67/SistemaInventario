@@ -23,7 +23,7 @@ Proyecto 1 de **ISW-124 Programación Avanzada**.
 
 https://universidaduce-my.sharepoint.com/:v:/g/personal/jg2024-0823_uce_edu_do/IQCxJrysDzDlQbUJTOa7EdmeAZV9J_gjLdOfV4qP4xEqo2A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=h6lREm
 
-[![Ver video demostrativo](https://img.youtube.com/vi/ID_DEL_VIDEO/hqdefault.jpg)](https://www.youtube.com/watch?v=ID_DEL_VIDEO)
+<img width="640" height="360" alt="MedalTVScreenRecording20261018215054900" src="https://github.com/user-attachments/assets/86daeb16-27bf-47f6-8e72-290afa71d042" />
 
 ▶️ Haz clic en la imagen para ver el video (X minutos): muestra el funcionamiento de la aplicación y explica la arquitectura por capas.
 
